@@ -1,18 +1,22 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class SlotCellController : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
+    [SerializeField]
+    private Image icon;
+    public SlotCellOption cellOption;
 
-    // Update is called once per frame
-    void Update()
+    /*public int shownID
     {
-        
+         (cellOption == null) ? -1 : cellOption.uniqueID; 
+    }*/
+
+    public void AssignCellOption(SlotCellOption argNewOption)
+    {
+        icon.sprite = argNewOption.image;
+        cellOption = argNewOption;
     }
 }

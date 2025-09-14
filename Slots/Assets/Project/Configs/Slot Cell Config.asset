@@ -1,0 +1,39 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3180ac23ef2051a49b3214f81bcdf57b, type: 3}
+  m_Name: Slot Cell Config
+  m_EditorClassIdentifier: 
+  cellOptions:
+  - uniqueID: 1
+    image: {fileID: 858058632, guid: 8895b4924dd48334fa46295a4fbba30d, type: 3}
+    weight: 100
+    isWild: 0
+  - uniqueID: 2
+    image: {fileID: -1054653029, guid: 8895b4924dd48334fa46295a4fbba30d, type: 3}
+    weight: 1
+    isWild: 0
+  - uniqueID: 3
+    image: {fileID: -1920526272, guid: 8895b4924dd48334fa46295a4fbba30d, type: 3}
+    weight: 1
+    isWild: 0
+  - uniqueID: 4
+    image: {fileID: -242262717, guid: 8895b4924dd48334fa46295a4fbba30d, type: 3}
+    weight: 1
+    isWild: 0
+  - uniqueID: 5
+    image: {fileID: -309810963, guid: 8895b4924dd48334fa46295a4fbba30d, type: 3}
+    weight: 1
+    isWild: 0
+  - uniqueID: 6
+    image: {fileID: -2055908333, guid: 8895b4924dd48334fa46295a4fbba30d, type: 3}
+    weight: 1
+    isWild: 0
