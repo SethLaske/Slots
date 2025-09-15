@@ -90,7 +90,7 @@ public class SlotReelController : MonoBehaviour
     
     private IEnumerator StopRoutine(float totalTime)
     {
-        float spinTime = Mathf.Max(0, totalTime - 1f);
+        float spinTime = Mathf.Max(0, totalTime - .5f);
         float timer = 0f;
         
         while (timer < spinTime)
@@ -100,9 +100,9 @@ public class SlotReelController : MonoBehaviour
         }
 
         float yPos = reel.localPosition.y % spaceBetweenCells;
-        float yDistanceRemaining = 2*spaceBetweenCells - Mathf.Abs(yPos);
+        float yDistanceRemaining = spaceBetweenCells - Mathf.Abs(yPos);
 
-        currentMovementSpeed = yDistanceRemaining * (totalTime - timer);
+        currentMovementSpeed = yDistanceRemaining / (totalTime - timer);
 
         while (timer < totalTime)
         {
@@ -123,7 +123,6 @@ public class SlotReelController : MonoBehaviour
             MoveReel((spaceBetweenCells - modulus));
         }
 
-
         OnSpinningFinished();
     }
 
@@ -131,6 +130,8 @@ public class SlotReelController : MonoBehaviour
     {
         ResetAtCurrentPosition();
         currentMovementSpeed = normalMovementSpeed;
+
+        SlotGameController.instance.OnReelStoppedSpinning();
     }
 
     private void ResetAtCurrentPosition()

@@ -57,10 +57,12 @@ public class SlotPayLineResult
 {
     public SlotCellOption winningOption;
     public int cellCount;
+    public float payoutMultiplier;
 
     public SlotPayLineResult(SlotCellOption argOption, int argCount)
     {
         winningOption = argOption;
         cellCount = argCount;
+        payoutMultiplier = argOption.GetPayoutMultiplier(argCount);
     }
 }
