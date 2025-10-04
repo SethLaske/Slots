@@ -1984,6 +1984,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Slot_Reel_3,2_Center
       objectReference: {fileID: 0}
+    - target: {fileID: 6017598253782157681, guid: 79a3192e98333ae46b3d47119099b621, type: 3}
+      propertyPath: cellConfig
+      value: 
+      objectReference: {fileID: 11400000, guid: a13bc63b663c1184ea4e707011db4c90, type: 2}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -3475,6 +3479,7 @@ MonoBehaviour:
   - {fileID: 1365185482}
   - {fileID: 1426737331}
   - {fileID: 836932039}
+  activeBetAmount: 0
 --- !u!1001 &7185627895088202901
 PrefabInstance:
   m_ObjectHideFlags: 0

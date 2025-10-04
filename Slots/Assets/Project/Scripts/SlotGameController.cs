@@ -51,10 +51,27 @@ public class SlotGameController : MonoBehaviour
     [ContextMenu("Get Results")]
     public void GetResults()
     {
+        // Winning for pay lines
         List<SlotPayLineResult> winningPayLines = new List<SlotPayLineResult>();
         foreach (SlotReelPayLineStartController payLineController in payLineControllers)
         {
             winningPayLines.AddRange(payLineController.GetWinningResults());
+        }
+
+        bool isWildActive = false;
+        List<PrizeCell> prizeCells = new List<PrizeCell>();
+        foreach (SlotReelController cell in slotCells)
+        {
+            if (cell.GetSelectedCellOption() is WildCell)
+            {
+                isWildActive = true;
+                continue;
+            }
+            
+            if (cell.GetSelectedCellOption() is PrizeCell prizeCell)
+            {
+                prizeCells.Add(prizeCell);
+            }
         }
 
         float totalWinnings = 0;
@@ -64,7 +81,16 @@ public class SlotGameController : MonoBehaviour
             totalWinnings += payLine.payoutMultiplier * activeBetAmount;
             winningLines.AppendLine($"{payLine.cellCount} of {payLine.winningOption.uniqueID} pays {payLine.payoutMultiplier * activeBetAmount}");
         }
-        
+
+        if (isWildActive)
+        {
+            foreach (PrizeCell prize in prizeCells)
+            {
+                totalWinnings += prize.multiplier * activeBetAmount;
+                winningLines.AppendLine($"{prize.uniqueID} pays {prize.multiplier * activeBetAmount} with wild");
+            }
+        }
+
         Debug.Log($"Total payout amount: {totalWinnings} \n {winningLines}");
         
         SlotCurrencyController.instance.AdjustBank(totalWinnings);

@@ -14,7 +14,10 @@ public class SlotCellConfig : ScriptableObject
 
         foreach (SlotCellController cellController in currentControllers)
         {
-            usedIDs.Add(cellController.cellOption.uniqueID);
+            if (cellController.cellOption != null)
+            {
+                usedIDs.Add(cellController.cellOption.uniqueID);
+            }
         }
 
         return GetRandomSlotCell(usedIDs);
@@ -65,31 +68,9 @@ public class SlotCellConfig : ScriptableObject
 }
 
 [Serializable]
-public class SlotCellOption
+public class SlotCellOption : ScriptableObject
 {
     public int uniqueID = -1;
     public Sprite image = null;
-    public float weight = 1;
-    public bool isWild = false;
-    
-    //Payouts
-    public float x3Multiplier = 1;
-    public float x4Multiplier = 1;
-    public float x5Multiplier = 1;
-
-    public float GetPayoutMultiplier(int matchingCount)
-    {
-        switch (matchingCount)
-        {
-            case 3:
-                return x3Multiplier;
-            case 4:
-                return x4Multiplier;
-            case 5:
-                return x5Multiplier;
-        }
-
-        Debug.LogError("[SlotCellConfig] Invalid matching count, no payout");
-        return 0;
-    }
+    public float weight = 1; 
 }

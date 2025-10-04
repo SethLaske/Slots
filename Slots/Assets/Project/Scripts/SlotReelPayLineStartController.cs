@@ -16,13 +16,16 @@ public class SlotReelPayLineStartController : MonoBehaviour
         List<SlotPayLineResult> winningLineResults = new List<SlotPayLineResult>();
         
         SlotCellOption startingCellOption = startReel.GetSelectedCellOption();
-        
-        foreach (SlotReelPayLine payLine in payLines)
+
+        if (startingCellOption is NumberCell startingNumberCell)
         {
-            int matchingCells = payLine.GetMatchingCellsCount(startingCellOption.uniqueID);
-            if (matchingCells >= MINIMUM_CONSECUTIVE_CELLS)
+            foreach (SlotReelPayLine payLine in payLines)
             {
-                winningLineResults.Add(new SlotPayLineResult(startingCellOption, matchingCells));
+                int matchingCells = payLine.GetMatchingCellsCount(startingCellOption.uniqueID);
+                if (matchingCells >= MINIMUM_CONSECUTIVE_CELLS)
+                {
+                    winningLineResults.Add(new SlotPayLineResult(startingNumberCell, matchingCells));
+                }
             }
         }
 
@@ -43,7 +46,7 @@ public class SlotReelPayLine
         {
             SlotCellOption nextCellOption = orderedSlotReels[i].GetSelectedCellOption();
             
-            if (nextCellOption.uniqueID != firstCellID && nextCellOption.isWild == false)
+            if (nextCellOption.uniqueID != firstCellID && nextCellOption is WildCell == false)
             {
                 return i + 1;
             }
@@ -55,11 +58,11 @@ public class SlotReelPayLine
 
 public class SlotPayLineResult
 {
-    public SlotCellOption winningOption;
+    public NumberCell winningOption;
     public int cellCount;
     public float payoutMultiplier;
 
-    public SlotPayLineResult(SlotCellOption argOption, int argCount)
+    public SlotPayLineResult(NumberCell argOption, int argCount)
     {
         winningOption = argOption;
         cellCount = argCount;

@@ -37,7 +37,6 @@ public class SlotReelController : MonoBehaviour
     {
         lastCell = cells[^1];
         currentMovementSpeed = normalMovementSpeed;
-        Debug.Log($"Position: {cells[selectedCellIndex].transform.position.y}, Local Position {cells[selectedCellIndex].transform.localPosition.y}");
         
         foreach (SlotCellController cellController in cells)
         {
