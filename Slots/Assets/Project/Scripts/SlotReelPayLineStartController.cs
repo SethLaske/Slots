@@ -11,9 +11,9 @@ public class SlotReelPayLineStartController : MonoBehaviour
     
     public List<SlotReelPayLine> payLines;
 
-    public List<SlotPayLineResult> GetWinningResults()
+    public List<SlotWinningLineResult> GetWinningResults(float argBetAmount)
     {
-        List<SlotPayLineResult> winningLineResults = new List<SlotPayLineResult>();
+        List<SlotWinningLineResult> winningLineResults = new List<SlotWinningLineResult>();
         
         SlotCellOption startingCellOption = startReel.GetSelectedCellOption();
 
@@ -21,10 +21,11 @@ public class SlotReelPayLineStartController : MonoBehaviour
         {
             foreach (SlotReelPayLine payLine in payLines)
             {
-                int matchingCells = payLine.GetMatchingCellsCount(startingCellOption.uniqueID);
-                if (matchingCells >= MINIMUM_CONSECUTIVE_CELLS)
+                List<SlotReelController> winningReels = payLine.GetMatchingCellsCount(startingCellOption.uniqueID);
+                winningReels.Insert(0, startReel);
+                if (winningReels.Count >= MINIMUM_CONSECUTIVE_CELLS)
                 {
-                    winningLineResults.Add(new SlotPayLineResult(startingNumberCell, matchingCells));
+                    winningLineResults.Add(new SlotWinningLineResult(startingNumberCell, winningReels, argBetAmount));
                 }
             }
         }
@@ -40,32 +41,24 @@ public class SlotReelPayLine
     private List<SlotReelController> orderedSlotReels;
 
     /// Returns 1 if next cell doesn't match
-    public int GetMatchingCellsCount(int firstCellID)
+    public List<SlotReelController> GetMatchingCellsCount(int firstCellID)
     {
+        List<SlotReelController> matchingReels = new List<SlotReelController>();
+        
         for (int i = 0; i < orderedSlotReels.Count; i++)
         {
             SlotCellOption nextCellOption = orderedSlotReels[i].GetSelectedCellOption();
             
-            if (nextCellOption.uniqueID != firstCellID && nextCellOption is WildCell == false)
+            if (nextCellOption.uniqueID == firstCellID || nextCellOption is WildCell)
             {
-                return i + 1;
+                matchingReels.Add(orderedSlotReels[i]);
+            }
+            else
+            {
+                break;
             }
         }
         
-        return orderedSlotReels.Count + 1;
-    }
-}
-
-public class SlotPayLineResult
-{
-    public NumberCell winningOption;
-    public int cellCount;
-    public float payoutMultiplier;
-
-    public SlotPayLineResult(NumberCell argOption, int argCount)
-    {
-        winningOption = argOption;
-        cellCount = argCount;
-        payoutMultiplier = argOption.GetPayoutMultiplier(argCount);
+        return matchingReels;
     }
 }

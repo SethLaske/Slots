@@ -10,6 +10,8 @@ public class SlotUIManager : MonoBehaviour
     public static SlotUIManager instance;
 
     [SerializeField] private TextMeshProUGUI playerBankText;
+    [SerializeField] private TextMeshProUGUI playerBetText;
+    [SerializeField] private TextMeshProUGUI payoutText;
     [SerializeField] private Button spinButton;
     [SerializeField] private Button increaseBetButton;
     [SerializeField] private Button decreaseBetButton;
@@ -28,8 +30,8 @@ public class SlotUIManager : MonoBehaviour
     public void SetInputEnabled(bool argEnabled)
     {
         spinButton.interactable = argEnabled;
-        increaseBetButton.interactable = argEnabled;
-        decreaseBetButton.interactable = argEnabled;
+        increaseBetButton.interactable = argEnabled && SlotCurrencyController.instance.canIncrement;
+        decreaseBetButton.interactable = argEnabled && SlotCurrencyController.instance.canDecrement;
     }
 
     public void OnSpinButtonPressed()
@@ -42,16 +44,38 @@ public class SlotUIManager : MonoBehaviour
     
     public void OnIncrementBetButtonPressed()
     {
-        
+        SlotCurrencyController.instance.TryIncreaseBet();
     }
 
     public void OnDecrementBetButtonPressed()
     {
-        
+        SlotCurrencyController.instance.TryDecreaseBet();
+    }
+
+    public void SetBetAmountButtonEnabled(bool argCanIncrement, bool argCanDecrement)
+    {
+        increaseBetButton.interactable = argCanIncrement;
+        decreaseBetButton.interactable = argCanDecrement;
     }
 
     public void SetPlayerBankText(float argValue)
     {
         playerBankText.text = $"Balance: ${argValue:0.00}";
+    }
+    
+    public void SetPlayerBetText(float argValue)
+    {
+        playerBetText.text = $"${argValue:0.00}";
+    }
+
+    public void SetPayoutText(float argValue)
+    {
+        if (argValue <= 0)
+        {
+            payoutText.text = "Payout:";
+            return;
+        }
+
+        payoutText.text = $"Payout: ${argValue:0.00}";
     }
 }

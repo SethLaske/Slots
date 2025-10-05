@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class SlotReelController : MonoBehaviour
 {
@@ -12,7 +13,8 @@ public class SlotReelController : MonoBehaviour
     public bool isSpinning;
 
     public int selectedCellIndex = 0;
-    
+
+    public Image highlightBackground = null;
     public Transform reel = null;
     public List<SlotCellController> cells = new List<SlotCellController>();
     public Transform upperLimit = null;
@@ -143,5 +145,10 @@ public class SlotReelController : MonoBehaviour
             cell.transform.localPosition -= Vector3.up * change;
         }
 
+    }
+
+    public void SetHighlightVisibility(bool argIsVisible)
+    {
+        highlightBackground.enabled = argIsVisible;
     }
 }

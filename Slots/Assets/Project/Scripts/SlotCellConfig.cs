@@ -59,10 +59,8 @@ public class SlotCellConfig : ScriptableObject
             }
         }
         
-        
         Debug.LogError("[SlotCellConfig] Weight calc failed, returning null");
         return null;
-        
     }
 
 }

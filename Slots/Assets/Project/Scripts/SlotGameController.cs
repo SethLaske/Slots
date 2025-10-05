@@ -25,10 +25,12 @@ public class SlotGameController : MonoBehaviour
     public void StartSpinning(float argBetAmount)
     {
         SlotUIManager.instance.SetInputEnabled(false);
+        SlotUIManager.instance.SetPayoutText(0);
         activeBetAmount = SlotCurrencyController.instance.playerBetAmount;
         
         foreach (SlotReelController cell in slotCells)
         {
+            cell.SetHighlightVisibility(false);
             cell.StartSpinning();
         }
         
@@ -51,15 +53,15 @@ public class SlotGameController : MonoBehaviour
     [ContextMenu("Get Results")]
     public void GetResults()
     {
-        // Winning for pay lines
-        List<SlotPayLineResult> winningPayLines = new List<SlotPayLineResult>();
+        List<SlotWinningResult> winningResults = new List<SlotWinningResult>();
+        
         foreach (SlotReelPayLineStartController payLineController in payLineControllers)
         {
-            winningPayLines.AddRange(payLineController.GetWinningResults());
+            winningResults.AddRange(payLineController.GetWinningResults(activeBetAmount));
         }
 
         bool isWildActive = false;
-        List<PrizeCell> prizeCells = new List<PrizeCell>();
+        List<SlotWinningPrizeResult> prizeResults = new List<SlotWinningPrizeResult>();
         foreach (SlotReelController cell in slotCells)
         {
             if (cell.GetSelectedCellOption() is WildCell)
@@ -70,30 +72,29 @@ public class SlotGameController : MonoBehaviour
             
             if (cell.GetSelectedCellOption() is PrizeCell prizeCell)
             {
-                prizeCells.Add(prizeCell);
+                prizeResults.Add(new SlotWinningPrizeResult(prizeCell, cell, activeBetAmount));
             }
-        }
-
-        float totalWinnings = 0;
-        StringBuilder winningLines = new StringBuilder();
-        foreach (SlotPayLineResult payLine in winningPayLines)
-        {
-            totalWinnings += payLine.payoutMultiplier * activeBetAmount;
-            winningLines.AppendLine($"{payLine.cellCount} of {payLine.winningOption.uniqueID} pays {payLine.payoutMultiplier * activeBetAmount}");
         }
 
         if (isWildActive)
         {
-            foreach (PrizeCell prize in prizeCells)
-            {
-                totalWinnings += prize.multiplier * activeBetAmount;
-                winningLines.AppendLine($"{prize.uniqueID} pays {prize.multiplier * activeBetAmount} with wild");
-            }
+            winningResults.AddRange(prizeResults);
+        }
+
+        float totalWinnings = 0;
+        StringBuilder winningLines = new StringBuilder();
+        foreach (SlotWinningResult winner in winningResults)
+        {
+            totalWinnings += winner.payout;
+            winningLines.AppendLine(winner.GetDescription());
+
+            winner.SetHighlightVisibility(true);
         }
 
         Debug.Log($"Total payout amount: {totalWinnings} \n {winningLines}");
         
         SlotCurrencyController.instance.AdjustBank(totalWinnings);
+        SlotUIManager.instance.SetPayoutText(totalWinnings);
         SlotUIManager.instance.SetInputEnabled(true);
         activeBetAmount = 0;
     }
