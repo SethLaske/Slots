@@ -30,16 +30,14 @@ public class SlotUIManager : MonoBehaviour
     public void SetInputEnabled(bool argEnabled)
     {
         spinButton.interactable = argEnabled;
-        increaseBetButton.interactable = argEnabled && SlotCurrencyController.instance.canIncrement;
-        decreaseBetButton.interactable = argEnabled && SlotCurrencyController.instance.canDecrement;
+        increaseBetButton.interactable = argEnabled && SlotCurrencyController.instance.canIncrement && ProgressiveManager.instance.numberOfFreeSpinsRemaining == 0;
+        decreaseBetButton.interactable = argEnabled && SlotCurrencyController.instance.canDecrement && ProgressiveManager.instance.numberOfFreeSpinsRemaining == 0;
     }
 
     public void OnSpinButtonPressed()
     {
-        if (SlotCurrencyController.instance.TryBet(out float betAmount))
-        {
-            gameController.StartSpinning(betAmount);
-        }
+        gameController.TryStartSpinning();
+        
     }
     
     public void OnIncrementBetButtonPressed()

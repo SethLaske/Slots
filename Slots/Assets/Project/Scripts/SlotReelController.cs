@@ -110,8 +110,6 @@ public class SlotReelController : MonoBehaviour
             timer += Time.deltaTime;
             yield return null;    
         }
-        
-        isSpinning = false;
 
         float modulus = Mathf.Abs(reel.localPosition.y % spaceBetweenCells);
 
@@ -129,13 +127,14 @@ public class SlotReelController : MonoBehaviour
 
     private void OnSpinningFinished()
     {
-        ResetAtCurrentPosition();
+        CenterAtCurrentPosition();
         currentMovementSpeed = normalMovementSpeed;
 
+        isSpinning = false;
         SlotGameController.instance.OnReelStoppedSpinning();
     }
 
-    private void ResetAtCurrentPosition()
+    private void CenterAtCurrentPosition()
     {
         float desiredPosition = reel.localPosition.y % (spaceBetweenCells * cells.Count);
         float change = desiredPosition - reel.localPosition.y;

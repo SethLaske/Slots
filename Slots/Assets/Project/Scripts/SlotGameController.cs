@@ -3,29 +3,47 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Text;
 using UnityEngine;
-using UnityEngine.Serialization;
 
 public class SlotGameController : MonoBehaviour
 {
     public static SlotGameController instance;
     
     public List<SlotReelController> slotCells = new List<SlotReelController>();
-
     
     public List<SlotReelPayLineStartController> payLineControllers = new List<SlotReelPayLineStartController>();
 
-    [FormerlySerializedAs("betAmount")] public float activeBetAmount = 0;
+    public float activeBetAmount = 0;
+
+    private bool isInFreeSpinMode = false;
+
+    private float storedWinnings = 0;
     
     private void Awake()
     {
         instance = this;
     }
 
+    public void TryStartSpinning()
+    {
+        if (ProgressiveManager.instance.numberOfFreeSpinsRemaining > 0)
+        {
+            isInFreeSpinMode = true;
+            ProgressiveManager.instance.StartedFreeSpin();
+            StartSpinning(SlotCurrencyController.instance.playerBetAmount);
+            return;
+        }
+
+        if (SlotCurrencyController.instance.TryBet(out float betAmount))
+        {
+            SlotUIManager.instance.SetPayoutText(0);
+            StartSpinning(betAmount);
+        }
+    }
+
     [ContextMenu("Start Spinning")]
     public void StartSpinning(float argBetAmount)
     {
         SlotUIManager.instance.SetInputEnabled(false);
-        SlotUIManager.instance.SetPayoutText(0);
         activeBetAmount = SlotCurrencyController.instance.playerBetAmount;
         
         foreach (SlotReelController cell in slotCells)
@@ -40,11 +58,11 @@ public class SlotGameController : MonoBehaviour
     [ContextMenu("Stop Spinning")]
     public void StopSpinning()
     {
-        float timeTilFinish = 3;
+        float timeTilFinish = 2f;
         foreach (SlotReelController cell in slotCells)
         {
             cell.StopSpinning(timeTilFinish);
-            timeTilFinish += .2f;
+            timeTilFinish += .1f;
         }
         
         //Invoke(nameof(GetResults), 4);
@@ -79,24 +97,37 @@ public class SlotGameController : MonoBehaviour
         if (isWildActive)
         {
             winningResults.AddRange(prizeResults);
+            ProgressiveManager.instance.OnWildShown();
         }
 
-        float totalWinnings = 0;
+        float roundWinnings = 0;
         StringBuilder winningLines = new StringBuilder();
         foreach (SlotWinningResult winner in winningResults)
         {
-            totalWinnings += winner.payout;
+            roundWinnings += winner.payout;
             winningLines.AppendLine(winner.GetDescription());
 
             winner.SetHighlightVisibility(true);
         }
 
-        Debug.Log($"Total payout amount: {totalWinnings} \n {winningLines}");
-        
-        SlotCurrencyController.instance.AdjustBank(totalWinnings);
-        SlotUIManager.instance.SetPayoutText(totalWinnings);
-        SlotUIManager.instance.SetInputEnabled(true);
-        activeBetAmount = 0;
+        storedWinnings += roundWinnings;
+        Debug.Log($"Total payout amount: {roundWinnings} \n {winningLines}");
+        SlotUIManager.instance.SetPayoutText(storedWinnings);
+
+        if (isInFreeSpinMode == false || ProgressiveManager.instance.numberOfFreeSpinsRemaining == 0)
+        {
+            SlotCurrencyController.instance.AdjustBank(storedWinnings);
+            storedWinnings = 0;
+            SlotUIManager.instance.SetInputEnabled(true);
+            activeBetAmount = 0;
+            isInFreeSpinMode = false;
+        }
+        else
+        {
+            //Invoke(nameof(TryStartSpinning), .5f);
+            TryStartSpinning();
+        }
+
     }
 
     public void OnReelStoppedSpinning()
