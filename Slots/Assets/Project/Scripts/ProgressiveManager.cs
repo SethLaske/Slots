@@ -35,7 +35,7 @@ public class ProgressiveManager : MonoBehaviour
 
     public void AwardFreeSpins()
     {
-        numberOfFreeSpinsRemaining += 6;
+        numberOfFreeSpinsRemaining += SlotGameController.instance.gameConfig.freeSpinsAwarded;
         Debug.Log($"[Progressive] Activated reward, Free Spins {numberOfFreeSpinsRemaining}");
     }
 

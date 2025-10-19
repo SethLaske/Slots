@@ -91,7 +91,7 @@ public class SlotReelController : MonoBehaviour
     
     private IEnumerator StopRoutine(float totalTime)
     {
-        float spinTime = Mathf.Max(0, totalTime - .5f);
+        float spinTime = Mathf.Max(0, totalTime - SlotGameController.instance.gameConfig.spinFinishTime);
         float timer = 0f;
         
         while (timer < spinTime)

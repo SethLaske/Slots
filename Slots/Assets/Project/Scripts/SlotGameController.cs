@@ -7,6 +7,8 @@ using UnityEngine;
 public class SlotGameController : MonoBehaviour
 {
     public static SlotGameController instance;
+
+    public GameConfig gameConfig = null;
     
     public List<SlotReelController> slotCells = new List<SlotReelController>();
     
@@ -58,11 +60,11 @@ public class SlotGameController : MonoBehaviour
     [ContextMenu("Stop Spinning")]
     public void StopSpinning()
     {
-        float timeTilFinish = 2f;
+        float timeTilFinish = gameConfig.spinTime;
         foreach (SlotReelController cell in slotCells)
         {
             cell.StopSpinning(timeTilFinish);
-            timeTilFinish += .1f;
+            timeTilFinish += gameConfig.timeBetweenReels;
         }
         
         //Invoke(nameof(GetResults), 4);
@@ -124,7 +126,6 @@ public class SlotGameController : MonoBehaviour
         }
         else
         {
-            //Invoke(nameof(TryStartSpinning), .5f);
             TryStartSpinning();
         }
 

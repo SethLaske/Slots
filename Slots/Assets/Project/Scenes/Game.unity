@@ -3643,6 +3643,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6b0e3df7eab68904695c8483a9f9dc5c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  gameConfig: {fileID: 11400000, guid: 78cb304ab6f24294986ee289ea765375, type: 2}
   slotCells:
   - {fileID: 1365185483}
   - {fileID: 1426737332}

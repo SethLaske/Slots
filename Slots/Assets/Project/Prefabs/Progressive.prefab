@@ -280,3 +280,4 @@ MonoBehaviour:
   - {fileID: 935858748969609893}
   - {fileID: 847687935316976171}
   - {fileID: 4733845171071774504}
+  progressiveConfig: {fileID: 11400000, guid: 90543049fbe5def4ab7f3e83d690da28, type: 2}

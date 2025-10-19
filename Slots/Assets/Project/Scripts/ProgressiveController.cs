@@ -6,13 +6,14 @@ using Random = UnityEngine.Random;
 
 public class ProgressiveController : MonoBehaviour
 {
-
-    private int activeObjectIndex = 0;
+    private int activeTierIndex = 0;
+    private int attemptsOnTier = 0;
     public List<GameObject> progressiveObjects = new List<GameObject>();
-
+    public ProgressiveControllerConfig progressiveConfig;
+    
     private void Awake()
     {
-        activeObjectIndex = 0;
+        activeTierIndex = 0;
         if (progressiveObjects.Count < 1)
         {
             Debug.LogError("Progressives not assigned");
@@ -21,26 +22,39 @@ public class ProgressiveController : MonoBehaviour
 
         for(int i = 0; i < progressiveObjects.Count; i++)
         {
-            progressiveObjects[i].SetActive(i == activeObjectIndex);
+            progressiveObjects[i].SetActive(i == activeTierIndex);
+        }
+
+        if (progressiveConfig == null || progressiveConfig.progressiveTiers.Count != progressiveObjects.Count)
+        {
+            Debug.LogError("Progressive Config not assigned correctly");
         }
     }
 
     public void AttemptIncrement()
     {
-        int random = Random.Range(0, 1);//2 + (activeObjectIndex * 2));
+        attemptsOnTier++;
 
-        if (random == 0)
+        if (progressiveConfig.progressiveTiers[activeTierIndex].minimumNumberOfSpins > attemptsOnTier)
         {
-            activeObjectIndex ++;
-            if (activeObjectIndex >= progressiveObjects.Count)
+            return;
+        }
+
+        int random = Random.Range(0, 100);
+
+        if (random <= progressiveConfig.progressiveTiers[activeTierIndex].chanceToUpgrade)
+        {
+            activeTierIndex ++;
+            attemptsOnTier = 0;
+            if (activeTierIndex >= progressiveObjects.Count)
             {
                 ProgressiveManager.instance.AwardFreeSpins();
-                activeObjectIndex = 0;
+                activeTierIndex = 0;
             }
 
             for(int i = 0; i < progressiveObjects.Count; i++)
             {
-                progressiveObjects[i].SetActive(i == activeObjectIndex);
+                progressiveObjects[i].SetActive(i == activeTierIndex);
             }
         }
     }
