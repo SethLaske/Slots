@@ -10,6 +10,8 @@ public class ProgressiveManager : MonoBehaviour
 
     public int numberOfFreeSpinsRemaining { get; private set; }
 
+    private const string PROGRESSIVE_CONTROLLERS_PREFIX_KEY = "ProgressiveController{0}";
+
     private void Awake()
     {
         instance = this;
@@ -17,6 +19,24 @@ public class ProgressiveManager : MonoBehaviour
         if (progressiveControllers.Count < 1)
         {
             Debug.LogError("No progressive controllers assigned");
+        }
+
+        LoadData();
+    }
+
+    public void LoadData()
+    {
+        for (int i = 0; i < progressiveControllers.Count; i++)
+        {
+            progressiveControllers[i].LoadData(string.Format(PROGRESSIVE_CONTROLLERS_PREFIX_KEY, i));
+        }
+    }
+
+    public void SaveData()
+    {
+        for (int i = 0; i < progressiveControllers.Count; i++)
+        {
+            progressiveControllers[i].SaveData(string.Format(PROGRESSIVE_CONTROLLERS_PREFIX_KEY, i));
         }
     }
 

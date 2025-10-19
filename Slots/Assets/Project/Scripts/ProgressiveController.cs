@@ -10,10 +10,12 @@ public class ProgressiveController : MonoBehaviour
     private int attemptsOnTier = 0;
     public List<GameObject> progressiveObjects = new List<GameObject>();
     public ProgressiveControllerConfig progressiveConfig;
+
+    private const string ACTIVE_TIER_INDEX_KEY = "ActiveTierIndex";
+    private const string ATTEMPTS_ON_TIER_KEY = "AttemptsOnTier";
     
-    private void Awake()
+    private void Start()
     {
-        activeTierIndex = 0;
         if (progressiveObjects.Count < 1)
         {
             Debug.LogError("Progressives not assigned");
@@ -29,6 +31,18 @@ public class ProgressiveController : MonoBehaviour
         {
             Debug.LogError("Progressive Config not assigned correctly");
         }
+    }
+
+    public void LoadData(string savePrefix)
+    {
+        activeTierIndex = PlayerPrefs.GetInt(string.Join('_',new {savePrefix, ACTIVE_TIER_INDEX_KEY}), 0);
+        attemptsOnTier = PlayerPrefs.GetInt(string.Join('_',new {savePrefix, ATTEMPTS_ON_TIER_KEY}), 0);
+    }
+
+    public void SaveData(string savePrefix)
+    {
+        PlayerPrefs.SetInt(string.Join('_',new {savePrefix, ACTIVE_TIER_INDEX_KEY}), activeTierIndex);
+        PlayerPrefs.SetInt(string.Join('_',new {savePrefix, ATTEMPTS_ON_TIER_KEY}), attemptsOnTier);
     }
 
     public void AttemptIncrement()

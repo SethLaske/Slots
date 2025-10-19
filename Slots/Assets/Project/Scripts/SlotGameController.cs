@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Text;
+using UnityEditor;
 using UnityEngine;
 
 public class SlotGameController : MonoBehaviour
@@ -23,6 +24,18 @@ public class SlotGameController : MonoBehaviour
     private void Awake()
     {
         instance = this;
+    }
+
+    public void SaveData()
+    {
+        SlotCurrencyController.instance.SaveData();
+        ProgressiveManager.instance.SaveData();
+    }
+
+    [MenuItem("Seth/Clear Data")]
+    public static void ClearAllData()
+    {
+        PlayerPrefs.DeleteAll();
     }
 
     public void TryStartSpinning()
@@ -73,35 +86,24 @@ public class SlotGameController : MonoBehaviour
     [ContextMenu("Get Results")]
     public void GetResults()
     {
-        List<SlotWinningResult> winningResults = new List<SlotWinningResult>();
-        
-        foreach (SlotReelPayLineStartController payLineController in payLineControllers)
-        {
-            winningResults.AddRange(payLineController.GetWinningResults(activeBetAmount));
-        }
-
         bool isWildActive = false;
-        List<SlotWinningPrizeResult> prizeResults = new List<SlotWinningPrizeResult>();
+        
         foreach (SlotReelController cell in slotCells)
         {
             if (cell.GetSelectedCellOption() is WildCell)
             {
                 isWildActive = true;
-                continue;
-            }
-            
-            if (cell.GetSelectedCellOption() is PrizeCell prizeCell)
-            {
-                prizeResults.Add(new SlotWinningPrizeResult(prizeCell, cell, activeBetAmount));
+                break;
             }
         }
+
+        List<SlotWinningResult> winningResults = GetWinningResults(isWildActive);
 
         if (isWildActive)
         {
-            winningResults.AddRange(prizeResults);
             ProgressiveManager.instance.OnWildShown();
         }
-
+        
         float roundWinnings = 0;
         StringBuilder winningLines = new StringBuilder();
         foreach (SlotWinningResult winner in winningResults)
@@ -123,12 +125,34 @@ public class SlotGameController : MonoBehaviour
             SlotUIManager.instance.SetInputEnabled(true);
             activeBetAmount = 0;
             isInFreeSpinMode = false;
+
+            SaveData();
         }
         else
         {
             TryStartSpinning();
         }
+    }
 
+    private List<SlotWinningResult> GetWinningResults(bool isWildActive)
+    {
+        List<SlotWinningResult> winningResults = new List<SlotWinningResult>();
+        
+        foreach (SlotReelPayLineStartController payLineController in payLineControllers)
+        {
+            winningResults.AddRange(payLineController.GetWinningResults(activeBetAmount));
+        }
+        
+        foreach (SlotReelController cell in slotCells)
+        {
+            
+            if (cell.GetSelectedCellOption() is PrizeCell prizeCell)
+            {
+                winningResults.Add(new SlotWinningPrizeResult(prizeCell, cell, activeBetAmount));
+            }
+        }
+
+        return winningResults;
     }
 
     public void OnReelStoppedSpinning()

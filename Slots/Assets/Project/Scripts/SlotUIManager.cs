@@ -25,6 +25,8 @@ public class SlotUIManager : MonoBehaviour
         spinButton.onClick.AddListener(OnSpinButtonPressed);
         increaseBetButton.onClick.AddListener(OnIncrementBetButtonPressed);
         decreaseBetButton.onClick.AddListener(OnDecrementBetButtonPressed);
+        
+        SetPayoutText(0);
     }
 
     public void SetInputEnabled(bool argEnabled)
@@ -70,7 +72,7 @@ public class SlotUIManager : MonoBehaviour
     {
         if (argValue <= 0)
         {
-            payoutText.text = "Payout:";
+            payoutText.text = "Payout: $0.00";
             return;
         }
 
