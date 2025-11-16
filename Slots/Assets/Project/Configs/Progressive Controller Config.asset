@@ -15,7 +15,9 @@ MonoBehaviour:
   progressiveTiers:
   - minimumNumberOfSpins: 0
     chanceToUpgrade: 50
-  - minimumNumberOfSpins: 2
+  - minimumNumberOfSpins: 0
+    chanceToUpgrade: 50
+  - minimumNumberOfSpins: 3
     chanceToUpgrade: 33
   - minimumNumberOfSpins: 4
-    chanceToUpgrade: 15
+    chanceToUpgrade: 20

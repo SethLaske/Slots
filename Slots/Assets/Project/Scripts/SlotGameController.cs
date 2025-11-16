@@ -26,6 +26,11 @@ public class SlotGameController : MonoBehaviour
         instance = this;
     }
 
+    private void Update()
+    {
+        CountdownManager.instance.DoUpdate(Time.deltaTime);
+    }
+
     public void SaveData()
     {
         SlotCurrencyController.instance.SaveData();
@@ -61,13 +66,18 @@ public class SlotGameController : MonoBehaviour
         SlotUIManager.instance.SetInputEnabled(false);
         activeBetAmount = SlotCurrencyController.instance.playerBetAmount;
         
-        foreach (SlotReelController cell in slotCells)
+        SFXManager.Instance.PlaySound(SFXManager.Instance.reelStartSpinning);
+
+        new Countdown(.3f, true, null, null, () =>
         {
-            cell.SetHighlightVisibility(false);
-            cell.StartSpinning();
-        }
+            foreach (SlotReelController cell in slotCells)
+            {
+                cell.SetHighlightVisibility(false);
+                cell.StartSpinning();
+            }
         
-        StopSpinning();
+            StopSpinning();
+        });
     }
 
     [ContextMenu("Stop Spinning")]
@@ -114,24 +124,41 @@ public class SlotGameController : MonoBehaviour
             winner.SetHighlightVisibility(true);
         }
 
+        if (roundWinnings > 0)
+        {
+            SFXManager.Instance.PlaySound(SFXManager.Instance.paidSound);
+        }
+
         storedWinnings += roundWinnings;
         Debug.Log($"Total payout amount: {roundWinnings} \n {winningLines}");
         SlotUIManager.instance.SetPayoutText(storedWinnings);
 
-        if (isInFreeSpinMode == false || ProgressiveManager.instance.numberOfFreeSpinsRemaining == 0)
+        new Countdown(.3f, true, null, null, () =>
         {
-            SlotCurrencyController.instance.AdjustBank(storedWinnings);
-            storedWinnings = 0;
-            SlotUIManager.instance.SetInputEnabled(true);
-            activeBetAmount = 0;
-            isInFreeSpinMode = false;
+            if (isInFreeSpinMode == false || ProgressiveManager.instance.numberOfFreeSpinsRemaining == 0)
+            {
+                SlotCurrencyController.instance.AdjustBank(storedWinnings);
+                storedWinnings = 0;
+                SlotUIManager.instance.SetInputEnabled(true);
+                activeBetAmount = 0;
+                isInFreeSpinMode = false;
 
-            SaveData();
-        }
-        else
-        {
-            TryStartSpinning();
-        }
+                if (ProgressiveManager.instance.numberOfFreeSpinsRemaining == 0)
+                {
+                    SlotUIManager.instance.SetFreeSpinsVisible(false);
+                }
+
+                
+                SaveData();
+            }
+            else
+            {
+            
+                TryStartSpinning();
+            }
+        });
+        
+        
     }
 
     private List<SlotWinningResult> GetWinningResults(bool isWildActive)
@@ -155,18 +182,33 @@ public class SlotGameController : MonoBehaviour
         return winningResults;
     }
 
+    private int count = 0;
+    
     public void OnReelStoppedSpinning()
     {
+        
+
         foreach (SlotReelController cell in slotCells)
         {
             if (cell.isSpinning)
             {
+                if (count % 5 == 0)
+                {
+                    SFXManager.Instance.PlaySound(SFXManager.Instance.reelEndSpinning);
+                }
+
+                count++;
                 return;
             }
         }
         
         //All reels stopped spinning
+        SFXManager.Instance.PlaySound(SFXManager.Instance.reelEndSpinning);
         
-        GetResults();
+        new Countdown(.3f, true, null, null, () =>
+        {
+            GetResults();
+        });
+        
     }
 }

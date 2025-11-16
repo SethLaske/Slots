@@ -12,10 +12,13 @@ public class SlotUIManager : MonoBehaviour
     [SerializeField] private TextMeshProUGUI playerBankText;
     [SerializeField] private TextMeshProUGUI playerBetText;
     [SerializeField] private TextMeshProUGUI payoutText;
+    [SerializeField] private TextMeshProUGUI freeSpinsText;
     [SerializeField] private Button spinButton;
     [SerializeField] private Button increaseBetButton;
     [SerializeField] private Button decreaseBetButton;
 
+    [SerializeField] private GameObject freeSpinsContainer;
+    
     [SerializeField] private SlotGameController gameController;
     
     private void Awake()
@@ -77,5 +80,15 @@ public class SlotUIManager : MonoBehaviour
         }
 
         payoutText.text = $"Payout: ${argValue:0.00}";
+    }
+    
+    public void SetFreeSpinsVisible(bool argVisible)
+    {
+        freeSpinsContainer.SetActive(argVisible);
+    }
+    
+    public void SetFreeSpinsText(int argValue)
+    {
+        freeSpinsText.text = $"{argValue}";
     }
 }

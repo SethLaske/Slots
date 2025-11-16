@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using Random = UnityEngine.Random;
 
 public class SlotReelController : MonoBehaviour
 {
@@ -64,6 +65,11 @@ public class SlotReelController : MonoBehaviour
     private void MoveReel(float argDistance)
     {
         reel.position += argDistance * Vector3.down;
+
+        if (Random.Range(0, 1000f) == 0)
+        {
+            SFXManager.Instance.PlaySound(SFXManager.Instance.reelMidSpinning);
+        }
 
         foreach (SlotCellController cell in cells)
         {
@@ -129,7 +135,7 @@ public class SlotReelController : MonoBehaviour
     {
         CenterAtCurrentPosition();
         currentMovementSpeed = normalMovementSpeed;
-
+        
         isSpinning = false;
         SlotGameController.instance.OnReelStoppedSpinning();
     }

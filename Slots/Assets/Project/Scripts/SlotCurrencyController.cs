@@ -11,7 +11,7 @@ public class SlotCurrencyController : MonoBehaviour
     public float playerBank = 100;
 
     private int playerBetAmountIndex = 0;
-    private float[] playerBetAmountOptions = { 1, 2, 3, 5, 10 };
+    private float[] playerBetAmountOptions = { .5f, 1, 2, 3, 5, 10 };
     public float playerBetAmount => playerBetAmountOptions[playerBetAmountIndex];
 
     public bool canIncrement => playerBetAmountIndex < playerBetAmountOptions.Length - 1;
@@ -44,7 +44,7 @@ public class SlotCurrencyController : MonoBehaviour
     private void LoadData()
     {
         playerBank = PlayerPrefs.GetFloat(PLAYER_BANK_KEY, SlotGameController.instance.gameConfig.defaultBankAmount);
-        playerBetAmountIndex = PlayerPrefs.GetInt(PLAYER_BET_INDEX_KEY, 0);
+        playerBetAmountIndex = Mathf.Clamp(PlayerPrefs.GetInt(PLAYER_BET_INDEX_KEY, 0), 0, playerBetAmountOptions.Length - 1);
     }
 
     public bool TryBet(out float betAmount)

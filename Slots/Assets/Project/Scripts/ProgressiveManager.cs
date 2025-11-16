@@ -1,6 +1,8 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 public class ProgressiveManager : MonoBehaviour
 {
@@ -22,6 +24,12 @@ public class ProgressiveManager : MonoBehaviour
         }
 
         LoadData();
+    }
+
+    private void Start()
+    {
+        SlotUIManager.instance.SetFreeSpinsVisible(numberOfFreeSpinsRemaining > 0);
+        SlotUIManager.instance.SetFreeSpinsText(numberOfFreeSpinsRemaining);
     }
 
     public void LoadData()
@@ -57,11 +65,14 @@ public class ProgressiveManager : MonoBehaviour
     {
         numberOfFreeSpinsRemaining += SlotGameController.instance.gameConfig.freeSpinsAwarded;
         Debug.Log($"[Progressive] Activated reward, Free Spins {numberOfFreeSpinsRemaining}");
+        SlotUIManager.instance.SetFreeSpinsVisible(true);
+        SlotUIManager.instance.SetFreeSpinsText(numberOfFreeSpinsRemaining);
     }
 
     public void StartedFreeSpin()
     {
         numberOfFreeSpinsRemaining--;
         Debug.Log($"[Progressive] Used reward, Remaining Spins {numberOfFreeSpinsRemaining}");
+        SlotUIManager.instance.SetFreeSpinsText(numberOfFreeSpinsRemaining);
     }
 }
