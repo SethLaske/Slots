@@ -169,13 +169,15 @@ public class SlotGameController : MonoBehaviour
         {
             winningResults.AddRange(payLineController.GetWinningResults(activeBetAmount));
         }
-        
-        foreach (SlotReelController cell in slotCells)
+
+        if (isWildActive)
         {
-            
-            if (cell.GetSelectedCellOption() is PrizeCell prizeCell)
+            foreach (SlotReelController cell in slotCells)
             {
-                winningResults.Add(new SlotWinningPrizeResult(prizeCell, cell, activeBetAmount));
+                if (cell.GetSelectedCellOption() is PrizeCell prizeCell)
+                {
+                    winningResults.Add(new SlotWinningPrizeResult(prizeCell, cell, activeBetAmount));
+                }
             }
         }
 

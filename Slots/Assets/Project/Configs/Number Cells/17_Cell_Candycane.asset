@@ -10,11 +10,11 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 1da90d216af7a6247b3eb6f3d2a38125, type: 3}
-  m_Name: Number Cell
+  m_Name: 17_Cell_Candycane
   m_EditorClassIdentifier: 
-  uniqueID: 10
-  image: {fileID: 858058632, guid: 8895b4924dd48334fa46295a4fbba30d, type: 3}
-  weight: 5
+  uniqueID: 17
+  image: {fileID: 59642506, guid: d16fe107b762239408de95533c0d5fe0, type: 3}
+  weight: 200
   x3Multiplier: 2
   x4Multiplier: 4
   x5Multiplier: 10

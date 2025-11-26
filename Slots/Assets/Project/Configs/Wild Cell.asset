@@ -13,5 +13,5 @@ MonoBehaviour:
   m_Name: Wild Cell
   m_EditorClassIdentifier: 
   uniqueID: 1
-  image: {fileID: 766799065, guid: 8895b4924dd48334fa46295a4fbba30d, type: 3}
-  weight: 100
+  image: {fileID: -1634216930, guid: d16fe107b762239408de95533c0d5fe0, type: 3}
+  weight: 300

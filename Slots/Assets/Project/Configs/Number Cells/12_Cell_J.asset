@@ -9,10 +9,12 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: df996b28d1908e74e8b9b9773ea89c69, type: 3}
-  m_Name: Prize Cell 1
+  m_Script: {fileID: 11500000, guid: 1da90d216af7a6247b3eb6f3d2a38125, type: 3}
+  m_Name: 12_Cell_J
   m_EditorClassIdentifier: 
-  uniqueID: 21
-  image: {fileID: 473398073, guid: d16fe107b762239408de95533c0d5fe0, type: 3}
-  weight: 5
-  multiplier: 10
+  uniqueID: 12
+  image: {fileID: -126601045, guid: d16fe107b762239408de95533c0d5fe0, type: 3}
+  weight: 500
+  x3Multiplier: 0.4
+  x4Multiplier: 0.8
+  x5Multiplier: 1.5
