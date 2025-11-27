@@ -9,7 +9,7 @@ public class SlotReelController : MonoBehaviour
 {
     public float normalMovementSpeed = 1000;
     private float currentMovementSpeed = 1000;
-    public float spaceBetweenCells = 100;
+    public const float spaceBetweenCells = 175;
     
     public bool isSpinning;
 

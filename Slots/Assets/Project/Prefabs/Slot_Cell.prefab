@@ -36,7 +36,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 100, y: 100}
+  m_SizeDelta: {x: 150, y: 150}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &7992615712378479519
 CanvasRenderer:
@@ -59,11 +59,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   icon: {fileID: 1296510568677802082}
-  cellOption:
-    uniqueID: -1
-    image: {fileID: 0}
-    weight: 1
-    isWild: 0
+  cellOption: {fileID: 0}
 --- !u!114 &1296510568677802082
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -84,7 +80,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 10913, guid: 0000000000000000f000000000000000, type: 0}
+  m_Sprite: {fileID: -1118000661, guid: d16fe107b762239408de95533c0d5fe0, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
