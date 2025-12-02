@@ -13,6 +13,6 @@ MonoBehaviour:
   m_Name: Prize Cell
   m_EditorClassIdentifier: 
   uniqueID: 20
-  image: {fileID: 637444630, guid: d16fe107b762239408de95533c0d5fe0, type: 3}
+  image: {fileID: 1515041439, guid: d16fe107b762239408de95533c0d5fe0, type: 3}
   weight: 25
   multiplier: 5

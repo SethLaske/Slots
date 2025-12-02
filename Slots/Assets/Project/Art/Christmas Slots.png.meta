@@ -123,7 +123,7 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Christmas Slots_0
+      name: Christmas Slots_9
       rect:
         serializedVersion: 2
         x: 0
@@ -144,28 +144,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Christmas Slots_1
-      rect:
-        serializedVersion: 2
-        x: 16
-        y: 112
-        width: 16
-        height: 16
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 7d0ba744bd9486f48822ce0889a36594
-      internalID: -319905152
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Christmas Slots_2
+      name: Christmas Slots_J
       rect:
         serializedVersion: 2
         x: 32
@@ -186,10 +165,10 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Christmas Slots_3
+      name: Christmas Slots_K
       rect:
         serializedVersion: 2
-        x: 48
+        x: 64
         y: 112
         width: 16
         height: 16
@@ -207,10 +186,10 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Christmas Slots_4
+      name: Christmas Slots_Hat
       rect:
         serializedVersion: 2
-        x: 64
+        x: 96
         y: 112
         width: 16
         height: 16
@@ -228,11 +207,11 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Christmas Slots_5
+      name: Christmas Slots_Tree
       rect:
         serializedVersion: 2
-        x: 80
-        y: 112
+        x: 16
+        y: 96
         width: 16
         height: 16
       alignment: 0
@@ -249,11 +228,11 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Christmas Slots_6
+      name: Christmas Slots_Present_1
       rect:
         serializedVersion: 2
-        x: 96
-        y: 112
+        x: 48
+        y: 96
         width: 16
         height: 16
       alignment: 0
@@ -270,11 +249,11 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Christmas Slots_7
+      name: Christmas Slots_Wild
       rect:
         serializedVersion: 2
-        x: 112
-        y: 112
+        x: 80
+        y: 96
         width: 16
         height: 16
       alignment: 0
@@ -294,7 +273,7 @@ TextureImporter:
       name: Christmas Slots_8
       rect:
         serializedVersion: 2
-        x: 0
+        x: 112
         y: 96
         width: 16
         height: 16
@@ -312,11 +291,11 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Christmas Slots_9
+      name: Christmas Slots_10
       rect:
         serializedVersion: 2
-        x: 16
-        y: 96
+        x: 0
+        y: 80
         width: 16
         height: 16
       alignment: 0
@@ -333,11 +312,11 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Christmas Slots_10
+      name: Christmas Slots_Q
       rect:
         serializedVersion: 2
         x: 32
-        y: 96
+        y: 80
         width: 16
         height: 16
       alignment: 0
@@ -354,11 +333,11 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Christmas Slots_11
+      name: Christmas Slots_A
       rect:
         serializedVersion: 2
-        x: 48
-        y: 96
+        x: 64
+        y: 80
         width: 16
         height: 16
       alignment: 0
@@ -378,8 +357,8 @@ TextureImporter:
       name: Christmas Slots_12
       rect:
         serializedVersion: 2
-        x: 64
-        y: 96
+        x: 96
+        y: 80
         width: 16
         height: 16
       alignment: 0
@@ -396,11 +375,11 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Christmas Slots_13
+      name: Christmas Slots_CandyCane
       rect:
         serializedVersion: 2
-        x: 80
-        y: 96
+        x: 16
+        y: 64
         width: 16
         height: 16
       alignment: 0
@@ -417,11 +396,11 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Christmas Slots_14
+      name: Christmas Slots_Present_2
       rect:
         serializedVersion: 2
-        x: 96
-        y: 96
+        x: 48
+        y: 64
         width: 16
         height: 16
       alignment: 0
@@ -438,11 +417,11 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Christmas Slots_15
+      name: Christmas Slots_Present_3
       rect:
         serializedVersion: 2
-        x: 112
-        y: 96
+        x: 80
+        y: 64
         width: 16
         height: 16
       alignment: 0
@@ -462,8 +441,8 @@ TextureImporter:
       name: Christmas Slots_16
       rect:
         serializedVersion: 2
-        x: 32
-        y: 80
+        x: 112
+        y: 64
         width: 16
         height: 16
       alignment: 0
@@ -479,6 +458,90 @@ TextureImporter:
       indices: 
       edges: []
       weights: []
+    - serializedVersion: 2
+      name: Christmas Slots_Snowball
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 48
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: fefe19b4b359cdb469ecbce3a5931c66
+      internalID: 1597903116
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Christmas Slots_Ice
+      rect:
+        serializedVersion: 2
+        x: 10
+        y: 14
+        width: 20
+        height: 20
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 81c40e98dee0e4c499e488eff3ba7b9d
+      internalID: -955238889
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Christmas Slots_Outline
+      rect:
+        serializedVersion: 2
+        x: 35
+        y: 14
+        width: 20
+        height: 20
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d9c55bc5ad51d47499f2edc16a5dfb19
+      internalID: -1345422496
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Christmas Slots_28
+      rect:
+        serializedVersion: 2
+        x: 96
+        y: 16
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d1848d4d4b1459e439c608a485cbbf29
+      internalID: -1071928342
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
     outline: []
     physicsShape: []
     bones: []
@@ -490,23 +553,39 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      Christmas Slots_0: 1605879503
-      Christmas Slots_1: -319905152
-      Christmas Slots_10: 637444630
-      Christmas Slots_11: 473398073
+      Christmas Slots_10: -48953103
       Christmas Slots_12: -175039547
-      Christmas Slots_13: -1634216930
-      Christmas Slots_14: 1773167989
-      Christmas Slots_15: 1269462917
       Christmas Slots_16: -517150074
-      Christmas Slots_2: -126601045
-      Christmas Slots_3: -358089866
-      Christmas Slots_4: -1912724441
-      Christmas Slots_5: 427073257
-      Christmas Slots_6: 1515041439
-      Christmas Slots_7: -1118000661
-      Christmas Slots_8: 59642506
-      Christmas Slots_9: -48953103
+      Christmas Slots_18: -2123950283
+      Christmas Slots_19: -1432533464
+      Christmas Slots_20: 825750711
+      Christmas Slots_21: -168393400
+      Christmas Slots_22: 1184235102
+      Christmas Slots_23: -1454171751
+      Christmas Slots_24: -228194000
+      Christmas Slots_27: 1451432112
+      Christmas Slots_28: -1071928342
+      Christmas Slots_29: -1731333765
+      Christmas Slots_30: 673514980
+      Christmas Slots_31: 1505526798
+      Christmas Slots_32: -1730738664
+      Christmas Slots_33: -710874634
+      Christmas Slots_8: -48953103
+      Christmas Slots_9: 1605879503
+      Christmas Slots_A: 473398073
+      Christmas Slots_CandyCane: -1634216930
+      Christmas Slots_Hat: -1912724441
+      Christmas Slots_Ice: -955238889
+      Christmas Slots_J: -126601045
+      Christmas Slots_K: -358089866
+      Christmas Slots_Outline: -1345422496
+      Christmas Slots_Present_1: 1515041439
+      Christmas Slots_Present_2: 1773167989
+      Christmas Slots_Present_3: 1269462917
+      Christmas Slots_Q: 637444630
+      Christmas Slots_Snowball: 1597903116
+      Christmas Slots_Tree: 427073257
+      Christmas Slots_Wild: -1118000661
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: 14_Cell_K
   m_EditorClassIdentifier: 
   uniqueID: 14
-  image: {fileID: -1912724441, guid: d16fe107b762239408de95533c0d5fe0, type: 3}
+  image: {fileID: -358089866, guid: d16fe107b762239408de95533c0d5fe0, type: 3}
   weight: 400
   x3Multiplier: 0.4
   x4Multiplier: 1.3

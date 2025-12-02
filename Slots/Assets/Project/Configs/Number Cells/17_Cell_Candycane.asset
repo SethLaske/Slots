@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: 17_Cell_Candycane
   m_EditorClassIdentifier: 
   uniqueID: 17
-  image: {fileID: 59642506, guid: d16fe107b762239408de95533c0d5fe0, type: 3}
+  image: {fileID: -1634216930, guid: d16fe107b762239408de95533c0d5fe0, type: 3}
   weight: 200
   x3Multiplier: 2
   x4Multiplier: 7

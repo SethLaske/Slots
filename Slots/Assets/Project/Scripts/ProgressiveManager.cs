@@ -10,6 +10,8 @@ public class ProgressiveManager : MonoBehaviour
 
     public List<ProgressiveController> progressiveControllers = new List<ProgressiveController>();
 
+    public GameObject snowballPrefab;
+
     public int numberOfFreeSpinsRemaining { get; private set; }
 
     private const string PROGRESSIVE_CONTROLLERS_PREFIX_KEY = "ProgressiveController{0}";
@@ -56,7 +58,16 @@ public class ProgressiveManager : MonoBehaviour
 
             if (random == 0)
             {
-                progressiveController.AttemptIncrement();
+                GameObject snowBallClone = Instantiate(snowballPrefab, SlotGameController.instance.transform);
+
+                new Tween(1, snowBallClone.transform, snowBallClone.transform.position,
+                    progressiveController.transform.GetChild(0).position, true, null, null,
+                    () =>
+                    {
+                        progressiveController.AttemptIncrement();
+                        Destroy(snowBallClone);
+                    });
+
             }
         }
     }

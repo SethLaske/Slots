@@ -12,6 +12,8 @@ public class SlotGameController : MonoBehaviour
     public GameConfig gameConfig = null;
     
     public List<SlotReelController> slotCells = new List<SlotReelController>();
+
+    public SlotReelController centerReel => slotCells[7];
     
     public List<SlotReelPayLineStartController> payLineControllers = new List<SlotReelPayLineStartController>();
 
@@ -33,6 +35,7 @@ public class SlotGameController : MonoBehaviour
     private void Update()
     {
         CountdownManager.instance.DoUpdate(Time.deltaTime);
+        TweenManager.instance.DoUpdate(Time.deltaTime);
     }
 
     public void SaveData()
@@ -87,6 +90,12 @@ public class SlotGameController : MonoBehaviour
             foreach (SlotReelController cell in slotCells)
             {
                 cell.SetHighlightVisibility(false);
+                
+                if (isInFreeSpinMode && cell.Equals(centerReel))
+                {
+                    continue;
+                }
+
                 cell.StartSpinning();
             }
         
@@ -122,11 +131,6 @@ public class SlotGameController : MonoBehaviour
         }
 
         latestWinningResults = GetWinningResults(isWildActive);
-
-        if (isWildActive)
-        {
-            ProgressiveManager.instance.OnWildShown();
-        }
         
         float roundWinnings = 0;
         StringBuilder winningLines = new StringBuilder();
@@ -144,6 +148,11 @@ public class SlotGameController : MonoBehaviour
             showWinningLineHighlightCountdown = GetNextWinningLineHighlightCountdown(3);
         }
 
+        if (isWildActive)
+        {
+            ProgressiveManager.instance.OnWildShown();
+        }
+        
         storedWinnings += roundWinnings;
         Debug.Log($"Total payout amount: {roundWinnings} \n {winningLines}");
         SlotUIManager.instance.SetPayoutTextGradual(storedWinnings, Mathf.Log10(storedWinnings));
