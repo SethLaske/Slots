@@ -99,10 +99,10 @@ MonoBehaviour:
   m_Transition: 1
   m_Colors:
     m_NormalColor: {r: 0.9803922, g: 0.854902, b: 0.4784314, a: 1}
-    m_HighlightedColor: {r: 0.690566, g: 0.690566, b: 0.690566, a: 1}
-    m_PressedColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 1}
-    m_SelectedColor: {r: 1, g: 0.9441461, b: 0.54905653, a: 1}
-    m_DisabledColor: {r: 0.4490565, g: 0.4490565, b: 0.4490565, a: 0.5019608}
+    m_HighlightedColor: {r: 0.97735846, g: 0.8929922, b: 0.6398932, a: 1}
+    m_PressedColor: {r: 0.690566, g: 0.6361601, b: 0.46776077, a: 1}
+    m_SelectedColor: {r: 0.6901961, g: 0.63529414, b: 0.4666667, a: 1}
+    m_DisabledColor: {r: 0.6981132, g: 0.6689593, b: 0.58878607, a: 0.8862745}
     m_ColorMultiplier: 1
     m_FadeDuration: 0.1
   m_SpriteState:

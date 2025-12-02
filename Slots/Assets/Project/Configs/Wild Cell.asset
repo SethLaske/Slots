@@ -14,4 +14,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   uniqueID: 1
   image: {fileID: -1634216930, guid: d16fe107b762239408de95533c0d5fe0, type: 3}
-  weight: 300
+  weight: 600

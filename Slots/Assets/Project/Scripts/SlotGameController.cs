@@ -15,6 +15,10 @@ public class SlotGameController : MonoBehaviour
     
     public List<SlotReelPayLineStartController> payLineControllers = new List<SlotReelPayLineStartController>();
 
+    private List<SlotWinningResult> latestWinningResults = null;
+
+    private Countdown showWinningLineHighlightCountdown = null;
+    
     public float activeBetAmount = 0;
 
     private bool isInFreeSpinMode = false;
@@ -37,14 +41,17 @@ public class SlotGameController : MonoBehaviour
         ProgressiveManager.instance.SaveData();
     }
 
+#if UNITY_EDITOR
     [MenuItem("Seth/Clear Data")]
     public static void ClearAllData()
     {
         PlayerPrefs.DeleteAll();
     }
+#endif
 
     public void TryStartSpinning()
     {
+        SlotCurrencyController.instance.AdjustBank(0);
         if (ProgressiveManager.instance.numberOfFreeSpinsRemaining > 0)
         {
             isInFreeSpinMode = true;
@@ -59,12 +66,19 @@ public class SlotGameController : MonoBehaviour
             StartSpinning(betAmount);
         }
     }
-
-    [ContextMenu("Start Spinning")]
+    
     public void StartSpinning(float argBetAmount)
     {
         SlotUIManager.instance.SetInputEnabled(false);
         activeBetAmount = SlotCurrencyController.instance.playerBetAmount;
+        
+        latestWinningResults = null;
+
+        if (showWinningLineHighlightCountdown != null)
+        {
+            showWinningLineHighlightCountdown.EndTimer(false);
+            showWinningLineHighlightCountdown = null;
+        }
         
         SFXManager.Instance.PlaySound(SFXManager.Instance.reelStartSpinning);
 
@@ -107,7 +121,7 @@ public class SlotGameController : MonoBehaviour
             }
         }
 
-        List<SlotWinningResult> winningResults = GetWinningResults(isWildActive);
+        latestWinningResults = GetWinningResults(isWildActive);
 
         if (isWildActive)
         {
@@ -116,7 +130,7 @@ public class SlotGameController : MonoBehaviour
         
         float roundWinnings = 0;
         StringBuilder winningLines = new StringBuilder();
-        foreach (SlotWinningResult winner in winningResults)
+        foreach (SlotWinningResult winner in latestWinningResults)
         {
             roundWinnings += winner.payout;
             winningLines.AppendLine(winner.GetDescription());
@@ -127,13 +141,16 @@ public class SlotGameController : MonoBehaviour
         if (roundWinnings > 0)
         {
             SFXManager.Instance.PlaySound(SFXManager.Instance.paidSound);
+            showWinningLineHighlightCountdown = GetNextWinningLineHighlightCountdown(3);
         }
 
         storedWinnings += roundWinnings;
         Debug.Log($"Total payout amount: {roundWinnings} \n {winningLines}");
-        SlotUIManager.instance.SetPayoutText(storedWinnings);
+        SlotUIManager.instance.SetPayoutTextGradual(storedWinnings, Mathf.Log10(storedWinnings));
 
-        new Countdown(.3f, true, null, null, () =>
+        float delay = roundWinnings > 0 ? 1.5f : .4f;
+        
+        new Countdown(delay, true, null, null, () =>
         {
             if (isInFreeSpinMode == false || ProgressiveManager.instance.numberOfFreeSpinsRemaining == 0)
             {
@@ -147,18 +164,37 @@ public class SlotGameController : MonoBehaviour
                 {
                     SlotUIManager.instance.SetFreeSpinsVisible(false);
                 }
-
                 
                 SaveData();
             }
             else
             {
-            
                 TryStartSpinning();
             }
         });
-        
-        
+    }
+
+    private Countdown GetNextWinningLineHighlightCountdown(float argDelay)
+    {
+        return new Countdown(argDelay, true, null, null, () =>
+        {
+            foreach (SlotReelController cell in slotCells)
+            {
+                cell.SetHighlightVisibility(false);
+            }
+                
+            if (latestWinningResults != null && latestWinningResults.Count > 0)
+            {
+                latestWinningResults[0].SetHighlightVisibility(true);
+                showWinningLineHighlightCountdown = GetNextWinningLineHighlightCountdown(.75f);
+                latestWinningResults.RemoveAt(0);
+            }
+            else
+            {
+                showWinningLineHighlightCountdown = null;
+            }
+
+        });
     }
 
     private List<SlotWinningResult> GetWinningResults(bool isWildActive)

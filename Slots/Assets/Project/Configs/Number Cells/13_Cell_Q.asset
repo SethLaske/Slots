@@ -16,5 +16,5 @@ MonoBehaviour:
   image: {fileID: -358089866, guid: d16fe107b762239408de95533c0d5fe0, type: 3}
   weight: 500
   x3Multiplier: 0.4
-  x4Multiplier: 0.8
-  x5Multiplier: 1.5
+  x4Multiplier: 1.2
+  x5Multiplier: 2.4

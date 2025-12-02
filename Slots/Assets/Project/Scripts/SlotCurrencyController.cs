@@ -85,6 +85,15 @@ public class SlotCurrencyController : MonoBehaviour
     public void AdjustBank(float argAmount)
     {
         playerBank += argAmount;
-        SlotUIManager.instance.SetPlayerBankText(playerBank);
+
+        if (argAmount > playerBetAmount * 2)
+        {
+            SlotUIManager.instance.SetBankTextGradual(playerBank, Mathf.Log10(argAmount)/2);
+        }
+        else
+        {
+            SlotUIManager.instance.SetPlayerBankText(playerBank);
+        }
+
     }
 }

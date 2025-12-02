@@ -6,15 +6,17 @@ using UnityEngine;
 public class Countdown
 {
     private Action onStart;
-    private Action onUpdate;
+    private Action<float, float> onUpdate;
     private Action onComplete;
 
+    private float initialTime;
     private float timeRemaining;
 
     private bool isActive;
 
-    public Countdown(float argTime, bool argStartOnCreation = true, Action argOnStart = null, Action argOnUpdate = null, Action argOnComplete = null) 
+    public Countdown(float argTime, bool argStartOnCreation = true, Action argOnStart = null, Action<float, float> argOnUpdate = null, Action argOnComplete = null)
     {
+        initialTime = argTime;
         timeRemaining = argTime;
         onStart = argOnStart;
         onUpdate = argOnUpdate;
@@ -65,7 +67,7 @@ public class Countdown
         timeRemaining -= delta;
         if (timeRemaining > 0)
         {
-            onUpdate?.Invoke();
+            onUpdate?.Invoke(initialTime - timeRemaining, initialTime);
         }
         else 
         {
