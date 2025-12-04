@@ -156,4 +156,9 @@ public class SlotReelController : MonoBehaviour
     {
         highlightBackground.enabled = argIsVisible;
     }
+    
+    public void SetFreezeVisible(bool argVisible)
+    {
+        cells[selectedCellIndex].SetFreezeVisible(argVisible);
+    }
 }

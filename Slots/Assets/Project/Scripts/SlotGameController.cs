@@ -151,6 +151,11 @@ public class SlotGameController : MonoBehaviour
         if (isWildActive)
         {
             ProgressiveManager.instance.OnWildShown();
+            
+            foreach (SlotReelController cell in slotCells)
+            {
+                cell.SetFreezeVisible(false);
+            }
         }
         
         storedWinnings += roundWinnings;
