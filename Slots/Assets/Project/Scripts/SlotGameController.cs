@@ -36,6 +36,7 @@ public class SlotGameController : MonoBehaviour
     {
         CountdownManager.instance.DoUpdate(Time.deltaTime);
         TweenManager.instance.DoUpdate(Time.deltaTime);
+        DebugManager.instance.DoUpdate(Time.deltaTime);
     }
 
     public void SaveData()
@@ -49,6 +50,12 @@ public class SlotGameController : MonoBehaviour
     public static void ClearAllData()
     {
         PlayerPrefs.DeleteAll();
+    }
+    
+    [MenuItem("Seth/Set Min Money")]
+    public static void SetMinMoney()
+    {
+        PlayerPrefs.SetFloat(SlotCurrencyController.PLAYER_BANK_KEY, 10);
     }
 #endif
 

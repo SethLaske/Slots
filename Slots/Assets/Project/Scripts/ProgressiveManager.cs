@@ -60,7 +60,7 @@ public class ProgressiveManager : MonoBehaviour
             {
                 GameObject snowBallClone = Instantiate(snowballPrefab, SlotGameController.instance.transform);
 
-                new Tween(1, snowBallClone.transform, snowBallClone.transform.position,
+                new Tween(.6f, snowBallClone.transform, snowBallClone.transform.position,
                     progressiveController.transform.GetChild(0).position, true, null, null,
                     () =>
                     {

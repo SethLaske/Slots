@@ -17,7 +17,7 @@ public class SlotCurrencyController : MonoBehaviour
     public bool canIncrement => playerBetAmountIndex < playerBetAmountOptions.Length - 1;
     public bool canDecrement => playerBetAmountIndex > 0;
 
-    private const string PLAYER_BANK_KEY = "PlayerBank";
+    public const string PLAYER_BANK_KEY = "PlayerBank";
     private const string PLAYER_BET_INDEX_KEY = "PlayerBetIndex";
     
     private void Awake()
@@ -94,6 +94,11 @@ public class SlotCurrencyController : MonoBehaviour
         {
             SlotUIManager.instance.SetPlayerBankText(playerBank);
         }
+    }
 
+    public void SetBank(float argAmount)
+    {
+        playerBank = argAmount;
+        SlotUIManager.instance.SetPlayerBankText(playerBank);
     }
 }

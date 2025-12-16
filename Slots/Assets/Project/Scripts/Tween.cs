@@ -80,8 +80,7 @@ public class Tween
         {
             onUpdate?.Invoke(initialTime - timeRemaining, initialTime);
 
-            float progress = initialTime - timeRemaining / initialTime;
-
+            float progress = (initialTime - timeRemaining) / initialTime;
             transform.position = Vector3.Lerp(initialPos, finalPos, progress);
         }
         else 
