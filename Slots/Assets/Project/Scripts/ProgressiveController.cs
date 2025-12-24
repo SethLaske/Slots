@@ -39,7 +39,7 @@ public class ProgressiveController : MonoBehaviour
         attemptsOnTier = PlayerPrefs.GetInt(string.Join('_',new {savePrefix, ATTEMPTS_ON_TIER_KEY}), 0);
 
         DateTime previousTime = SlotGameController.instance.previousClosedDateTime;
-        if (previousTime != DateTime.MinValue && (DateTime.Now - previousTime).Hours >=
+        if (Application.isPlaying && previousTime != DateTime.MinValue && (DateTime.Now - previousTime).Hours >=
             ProgressiveManager.instance.numberOfHoursOffToRandomize)
         {
             activeTierIndex = Random.Range(0, progressiveObjects.Count);

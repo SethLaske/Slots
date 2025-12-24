@@ -16,6 +16,9 @@ public class Countdown
 
     public Countdown(float argTime, bool argStartOnCreation = true, Action argOnStart = null, Action<float, float> argOnUpdate = null, Action argOnComplete = null)
     {
+        if (!Application.isPlaying)
+            return;
+        
         initialTime = argTime;
         timeRemaining = argTime;
         onStart = argOnStart;

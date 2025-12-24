@@ -3,7 +3,9 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Globalization;
 using System.Text;
+#if UNITY_EDITOR
 using UnityEditor;
+#endif
 using UnityEngine;
 
 public class SlotGameController : MonoBehaviour
@@ -33,6 +35,9 @@ public class SlotGameController : MonoBehaviour
 
     private void Awake()
     {
+        if (!Application.isPlaying)
+            return;
+
         instance = this;
         if (DateTime.TryParseExact(PlayerPrefs.GetString(PREVIOUS_CLOSED_TIME_KEY, ""), "yyyy-MM-dd HH:mm:ss",
                 CultureInfo.InvariantCulture, DateTimeStyles.None, out DateTime parsedTime))

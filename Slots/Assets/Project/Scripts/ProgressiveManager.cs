@@ -31,9 +31,13 @@ public class ProgressiveManager : MonoBehaviour
     private void Start()
     {
         LoadData();
-        
-        SlotUIManager.instance.SetFreeSpinsVisible(numberOfFreeSpinsRemaining > 0);
-        SlotUIManager.instance.SetFreeSpinsText(numberOfFreeSpinsRemaining);
+
+        if (SlotUIManager.instance != null)
+        {
+            SlotUIManager.instance.SetFreeSpinsVisible(numberOfFreeSpinsRemaining > 0);
+            SlotUIManager.instance.SetFreeSpinsText(numberOfFreeSpinsRemaining);
+        }
+
     }
 
     public void LoadData()

@@ -38,12 +38,18 @@ public class SlotReelController : MonoBehaviour
 
     private void Awake()
     {
+        if (!Application.isPlaying)
+            return;
+
         lastCell = cells[^1];
         currentMovementSpeed = normalMovementSpeed;
         
         foreach (SlotCellController cellController in cells)
         {
-            cellController.AssignCellOption(cellConfig.GetRandomSlotCellWithoutRepeats(cells));
+            if (cellController != null)
+            {
+                cellController.AssignCellOption(cellConfig.GetRandomSlotCellWithoutRepeats(cells));
+            }
         }
     }
 

@@ -12,6 +12,9 @@ public class TweenManager : MonoBehaviour
     private List<Tween> endedTweens = new List<Tween>();
     void Awake()
     {
+        if (!Application.isPlaying)
+            return;
+
         if (instance == null)
         {
 

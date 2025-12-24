@@ -33,6 +33,9 @@ public class SlotUIManager : MonoBehaviour
     
     private void Awake()
     {
+        if (!Application.isPlaying)
+            return;
+
         instance = this;
         
         spinButton.onClick.AddListener(OnSpinButtonPressed);
@@ -46,8 +49,12 @@ public class SlotUIManager : MonoBehaviour
     public void SetInputEnabled(bool argEnabled)
     {
         spinButton.interactable = argEnabled;
-        increaseBetButton.interactable = argEnabled && SlotCurrencyController.instance.canIncrement && ProgressiveManager.instance.numberOfFreeSpinsRemaining == 0;
-        decreaseBetButton.interactable = argEnabled && SlotCurrencyController.instance.canDecrement && ProgressiveManager.instance.numberOfFreeSpinsRemaining == 0;
+
+        if (SlotCurrencyController.instance != null && ProgressiveManager.instance != null)
+        {
+            increaseBetButton.interactable = argEnabled && SlotCurrencyController.instance.canIncrement && ProgressiveManager.instance.numberOfFreeSpinsRemaining == 0;
+            decreaseBetButton.interactable = argEnabled && SlotCurrencyController.instance.canDecrement && ProgressiveManager.instance.numberOfFreeSpinsRemaining == 0;
+        }
     }
 
     public void OnSpinButtonPressed()
@@ -58,12 +65,18 @@ public class SlotUIManager : MonoBehaviour
     
     public void OnIncrementBetButtonPressed()
     {
-        SlotCurrencyController.instance.TryIncreaseBet();
+        if (SlotCurrencyController.instance != null)
+        {
+            SlotCurrencyController.instance.TryIncreaseBet();
+        }
     }
 
     public void OnDecrementBetButtonPressed()
     {
-        SlotCurrencyController.instance.TryDecreaseBet();
+        if (SlotCurrencyController.instance != null)
+        {
+            SlotCurrencyController.instance.TryDecreaseBet();
+        }
     }
     
     public void OnExitButtonPressed()
@@ -71,8 +84,9 @@ public class SlotUIManager : MonoBehaviour
 #if UNITY_EDITOR
         EditorApplication.isPlaying = false;
         return;
-#endif
+#else
         Application.Quit();
+#endif
     }
 
     public void SetBetAmountButtonEnabled(bool argCanIncrement, bool argCanDecrement)

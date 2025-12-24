@@ -20,6 +20,9 @@ public class Tween
 
     public Tween(float argTime, Transform argTransform, Vector3 argInitialPos, Vector3 argFinalPos, bool argStartOnCreation = true, Action argOnStart = null, Action<float, float> argOnUpdate = null, Action argOnComplete = null)
     {
+        if (!Application.isPlaying)
+            return;
+        
         transform = argTransform;
         initialPos = argInitialPos;
         finalPos = argFinalPos;
@@ -29,9 +32,12 @@ public class Tween
         onStart = argOnStart;
         onUpdate = argOnUpdate;
         onComplete = argOnComplete;
-        isActive = false;   
-        
-        TweenManager.instance.AddNewTween(this);
+        isActive = false;
+
+        if (TweenManager.instance != null)
+        {
+            TweenManager.instance.AddNewTween(this);
+        }
 
         if (argStartOnCreation) 
         { 
@@ -65,7 +71,11 @@ public class Tween
             onComplete?.Invoke();
         }
 
-        TweenManager.instance.AddEndedTween(this);
+        if (TweenManager.instance != null)
+        {
+            TweenManager.instance.AddEndedTween(this);
+        }
+
     }
 
     public void UpdateTweener(float delta)

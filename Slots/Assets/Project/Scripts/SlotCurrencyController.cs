@@ -45,6 +45,11 @@ public class SlotCurrencyController : MonoBehaviour
 
     private void LoadData()
     {
+        if (!Application.isPlaying)
+        {
+            return;
+        }
+
         playerBank = PlayerPrefs.GetFloat(PLAYER_BANK_KEY, SlotGameController.instance.gameConfig.defaultBankAmount);
         playerBetAmountIndex = Mathf.Clamp(PlayerPrefs.GetInt(PLAYER_BET_INDEX_KEY, 0), 0, playerBetAmountOptions.Length - 1);
 
