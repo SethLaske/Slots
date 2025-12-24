@@ -929,6 +929,7 @@ MonoBehaviour:
   - {fileID: 827081035}
   - {fileID: 1254239745}
   snowballPrefab: {fileID: 3273229184690070461, guid: 2dda5d2057cb65349b1ad966860a6dfe, type: 3}
+  numberOfHoursOffToRandomize: 12
 --- !u!1001 &464190156
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -7402,6 +7403,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerBank: 100
+  thresholdToGiveAllowance: 25
+  numberOfHoursOffToGiveAllowance: 24
+  allowanceAmount: 50
 --- !u!1 &907143302
 GameObject:
   m_ObjectHideFlags: 0

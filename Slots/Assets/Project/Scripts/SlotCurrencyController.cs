@@ -19,12 +19,14 @@ public class SlotCurrencyController : MonoBehaviour
 
     public const string PLAYER_BANK_KEY = "PlayerBank";
     private const string PLAYER_BET_INDEX_KEY = "PlayerBetIndex";
+
+    public float thresholdToGiveAllowance = 25f;
+    public int numberOfHoursOffToGiveAllowance = 1;
+    public float allowanceAmount = 20f;
     
     private void Awake()
     {
         instance = this;
-        
-        
     }
 
     private void Start()
@@ -45,6 +47,11 @@ public class SlotCurrencyController : MonoBehaviour
     {
         playerBank = PlayerPrefs.GetFloat(PLAYER_BANK_KEY, SlotGameController.instance.gameConfig.defaultBankAmount);
         playerBetAmountIndex = Mathf.Clamp(PlayerPrefs.GetInt(PLAYER_BET_INDEX_KEY, 0), 0, playerBetAmountOptions.Length - 1);
+
+        if (playerBank < thresholdToGiveAllowance && (DateTime.Now - SlotGameController.instance.previousClosedDateTime).Hours >= numberOfHoursOffToGiveAllowance)
+        {
+            playerBank += allowanceAmount;
+        }
     }
 
     public bool TryBet(out float betAmount)

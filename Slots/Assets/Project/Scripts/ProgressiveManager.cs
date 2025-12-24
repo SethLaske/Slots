@@ -12,6 +12,8 @@ public class ProgressiveManager : MonoBehaviour
 
     public GameObject snowballPrefab;
 
+    public int numberOfHoursOffToRandomize = 3;
+    
     public int numberOfFreeSpinsRemaining { get; private set; }
 
     private const string PROGRESSIVE_CONTROLLERS_PREFIX_KEY = "ProgressiveController{0}";
@@ -24,12 +26,12 @@ public class ProgressiveManager : MonoBehaviour
         {
             Debug.LogError("No progressive controllers assigned");
         }
-
-        LoadData();
     }
 
     private void Start()
     {
+        LoadData();
+        
         SlotUIManager.instance.SetFreeSpinsVisible(numberOfFreeSpinsRemaining > 0);
         SlotUIManager.instance.SetFreeSpinsText(numberOfFreeSpinsRemaining);
     }

@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Text;
 using UnityEditor;
 using UnityEngine;
@@ -26,10 +27,22 @@ public class SlotGameController : MonoBehaviour
     private bool isInFreeSpinMode = false;
 
     private float storedWinnings = 0;
-    
+
+    public DateTime previousClosedDateTime { get; private set; }
+    private const string PREVIOUS_CLOSED_TIME_KEY = "Previous Closed Date Time";
+
     private void Awake()
     {
         instance = this;
+        if (DateTime.TryParseExact(PlayerPrefs.GetString(PREVIOUS_CLOSED_TIME_KEY, ""), "yyyy-MM-dd HH:mm:ss",
+                CultureInfo.InvariantCulture, DateTimeStyles.None, out DateTime parsedTime))
+        {
+            previousClosedDateTime = parsedTime;
+        }
+        else
+        {
+            previousClosedDateTime = DateTime.MinValue;
+        }
     }
 
     private void Update()
@@ -41,6 +54,7 @@ public class SlotGameController : MonoBehaviour
 
     public void SaveData()
     {
+        PlayerPrefs.SetString(PREVIOUS_CLOSED_TIME_KEY, DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss", CultureInfo.InvariantCulture));
         SlotCurrencyController.instance.SaveData();
         ProgressiveManager.instance.SaveData();
     }

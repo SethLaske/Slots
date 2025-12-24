@@ -1,4 +1,4 @@
-using System;
+
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -22,7 +22,7 @@ public class SlotReelController : MonoBehaviour
     public Transform lowerLimit = null;
     private SlotCellController lastCell = null;
 
-    private float timeTillStop = 0;
+    //private float timeTillStop = 0;
 
     public SlotCellConfig cellConfig = null;
 

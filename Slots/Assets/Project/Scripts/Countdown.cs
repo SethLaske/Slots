@@ -21,9 +21,12 @@ public class Countdown
         onStart = argOnStart;
         onUpdate = argOnUpdate;
         onComplete = argOnComplete;
-        isActive = false;   
-        
-        CountdownManager.instance.AddNewCountdown(this);
+        isActive = false;
+
+        if (CountdownManager.instance != null)
+        {
+            CountdownManager.instance.AddNewCountdown(this);
+        }
 
         if (argStartOnCreation) 
         { 
