@@ -1,5 +1,9 @@
 using System;
 using System.Collections.Generic;
+
+#if UNITY_EDITOR
+using UnityEditor;
+#endif
 using UnityEngine;
 
 public class DebugManager : MonoBehaviour
@@ -32,9 +36,19 @@ public class DebugManager : MonoBehaviour
     {
         commands = new Dictionary<string, Action>(StringComparer.OrdinalIgnoreCase)
         {
-            { "G", () => ProgressiveManager.instance.OnWildShown() },
+            { "FW", () => ProgressiveManager.instance.OnWildShown() },
             { "G20", () => SlotCurrencyController.instance.AdjustBank(20) },
             { "S20", () => SlotCurrencyController.instance.SetBank(20) },
+            { "Reset", () =>
+            {
+                PlayerPrefs.DeleteAll();
+#if UNITY_EDITOR
+                EditorApplication.isPlaying = false;
+                return;
+#else
+                Application.Quit();
+#endif
+            } },
         };
     }
 

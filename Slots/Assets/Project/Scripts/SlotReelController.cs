@@ -70,7 +70,7 @@ public class SlotReelController : MonoBehaviour
 
     private void MoveReel(float argDistance)
     {
-        reel.position += argDistance * Vector3.down;
+        reel.localPosition += argDistance * Vector3.down;
 
         if (Random.Range(0, 1000f) == 0)
         {
